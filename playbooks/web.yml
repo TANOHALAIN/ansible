@@ -1,0 +1,4 @@
+---
+- hosts: prod_web
+  roles:
+   - web

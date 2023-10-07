@@ -1,0 +1,20 @@
+---
+# tasks file for msql
+- name: install mysql
+  apt:
+    name:
+      - mysql-server
+      - mysql-client
+      - python-mysqldb
+
+- name: configurer mysql
+  ini_file:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    section: mysqld
+    option: bind-address
+    value: 0.0.0.0
+
+- name: demarrer mysql
+  service:
+    name: mysql
+    state: started

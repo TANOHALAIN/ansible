@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  master:
+    image: williamyeh/ansible:debian9
+    #container_name: master
+    working_dir: /root/playbooks/
+    volumes:
+      - "/Users/tanoh/.ssh/config:/root/.ssh/config"
+      - "/Users/tanoh/Documents/DevOps/SRV_Ansible/ansible/:/etc/ansible/"
+      - "/Users/tanoh/Documents/DevOps/SRV_Ansible/playbooks/:/root/playbooks/"
+    command: tail -f /dev/null
+    
+  web:
+    build: .
+    #container_name: web
+
+  db:
+    build: .
+    #container_name: db
+    
+
+  lb:
+    build: .
+    #container_name: lb
+    ports: 
+    - 8000:80

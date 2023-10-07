@@ -1,0 +1,53 @@
+---
+# tasks file for web
+- name: install apache2
+  apt: 
+    name: apache2 
+    state: latest
+
+- name: demarrer apache2
+  service: 
+    name: apache2 
+    state: started
+    enabled: yes
+
+- name: install repo php
+  apt:
+    name: software-properties-common
+    state: latest
+
+
+- name: ajout le ppa pour php 7.0
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: "Ajouter le repo PHP"
+  shell: "add-apt-repository ppa:ondrej/php -y"
+  environment:
+    LC_ALL: C.UTF-8
+  args:
+    creates: /etc/apt/sources.list.d/ondrej-ubuntu-php-xenial.list
+
+- name: install php 7.0
+  apt:
+    name: 
+      - php7.0
+      - php7.0-cli
+      - php7.0-common
+      - php7.0-curl
+      - php7.0-gd
+      - php7.0-json
+      - php7.0-mbstring
+      - php7.0-mcrypt
+      - php7.0-mysql
+      - php7.0-opcache
+      - php7.0-readline
+      - php7.0-xml
+      - php7.0-xsl
+      - php7.0-zip
+    cache_valid_time: 3600
+    state: latest
+  notify:
+    - restart apache2
+
